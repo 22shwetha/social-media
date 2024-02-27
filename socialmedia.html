@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .login-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .social-button {
+            background-color: #3b5998; /* Facebook Blue */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .twitter-button {
+            background-color: #1DA1F2; /* Twitter Blue */
+        }
+        .instagram-button {
+            background-color: #C13584; /* Instagram Pink */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <h2>Social Media Dashboard</h2>
+            <button class="social-button" onclick="loginWithFacebook()">Login with Facebook</button>
+            <button class="social-button twitter-button" onclick="loginWithTwitter()">Login with Twitter</button>
+            <button class="social-button instagram-button" onclick="loginWithInstagram()">Login with Instagram</button>
+        </div>
+        <div id="feeds-container">
+            <!-- Feeds from various social media platforms will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        // Function to initiate login with Facebook
+        function loginWithFacebook() {
+            // Replace with your Facebook App ID and redirect URI
+            var clientId = 'YOUR_FACEBOOK_APP_ID';
+            var redirectUri = 'YOUR_REDIRECT_URI';
+            var authUrl = 'https://www.facebook.com/v12.0/dialog/oauth?client_id=' + clientId + '&redirect_uri=' + redirectUri + '&scope=user_posts';
+
+            // Redirect the user to Facebook login page
+            window.location.href = authUrl;
+        }
+
+        // Function to initiate login with Twitter
+        function loginWithTwitter() {
+            // Replace with your Twitter API key and redirect URI
+            var apiKey = 'YOUR_TWITTER_API_KEY';
+            var redirectUri = 'YOUR_REDIRECT_URI';
+            var authUrl = 'https://api.twitter.com/oauth/authenticate?client_id=' + apiKey + '&redirect_uri=' + redirectUri;
+
+            // Redirect the user to Twitter login page
+            window.location.href = authUrl;
+        }
+
+        // Function to initiate login with Instagram
+        function loginWithInstagram() {
+            // Replace with your Instagram API key and redirect URI
+            var clientId = 'YOUR_INSTAGRAM_CLIENT_ID';
+            var redirectUri = 'YOUR_REDIRECT_URI';
+            var authUrl = 'https://api.instagram.com/oauth/authorize?client_id=' + clientId + '&redirect_uri=' + redirectUri + '&scope=user_profile,user_media';
+
+            // Redirect the user to Instagram login page
+            window.location.href = authUrl;
+        }
+
+        // Check if there's an authentication callback for Facebook, Twitter, or Instagram
+        handleAuthCallback();
+
+        // Function to handle authentication callback
+        function handleAuthCallback() {
+            // Check if there's an access token in the URL for Facebook, Twitter, or Instagram
+            var accessToken = new URLSearchParams(window.location.search).get('access_token');
+            if (accessToken) {
+                // Authentication successful, fetch feeds using the access token
+                getFeeds(accessToken);
+            }
+        }
+
+        // Function to fetch feeds using access token
+        function getFeeds(accessToken) {
+            // Make API request to fetch user's feeds from Facebook, Twitter, or Instagram
+            // Display the feeds in the feeds-container
+            var feedsContainer = document.getElementById('feeds-container');
+            // Example: Displaying feeds from Facebook
+            var facebookFeed = '<div class="social-feed"><h3>Facebook Feed</h3><p>Content from Facebook...</p></div>';
+            feedsContainer.innerHTML += facebookFeed;
+            // Similarly, fetch and display feeds from Twitter and Instagram
+        }
+    </script>
+</body>
+</html>
+
